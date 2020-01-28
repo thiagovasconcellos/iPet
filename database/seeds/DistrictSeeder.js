@@ -13,6 +13,8 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const bairros = require('../initial_data/bairros.json')
 const District = use('App/Models/District')
+// eslint-disable-next-line no-unused-vars
+const color = require('colors')
 
 class DistrictSeeder {
   async run () {
@@ -26,9 +28,9 @@ class DistrictSeeder {
           uf: data[i].Uf
         })
       }
-      console.log('seeded: DistrictSeeder.js')
+      console.log('seeded: '.green, 'DistrictSeeder.js')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

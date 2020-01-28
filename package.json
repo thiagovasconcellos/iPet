@@ -27,6 +27,7 @@
     "@adonisjs/mail": "^3.0.10",
     "@adonisjs/validator": "^5.0.6",
     "@brazilian-utils/is-valid-cep": "^0.1.2",
+    "colors": "^1.4.0",
     "cpf-cnpj-validator": "^0.1.0",
     "date-fns": "^2.9.0",
     "sqlite3": "^4.1.1"

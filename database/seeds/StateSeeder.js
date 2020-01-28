@@ -13,6 +13,8 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const estados = require('../initial_data/estados.json')
 const State = use('App/Models/State')
+// eslint-disable-next-line no-unused-vars
+const color = require('colors')
 
 class StateSeeder {
   async run () {
@@ -27,9 +29,9 @@ class StateSeeder {
           region: data[i].Regiao
         })
       }
-      console.log('seeded: StateSeeder.js')
+      console.log('seeded: '.green, 'StateSeeder.js')
     } catch (error) {
-      console.log(error)
+      console.error(error)
     }
   }
 }

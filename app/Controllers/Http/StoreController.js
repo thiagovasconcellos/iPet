@@ -1,8 +1,12 @@
 'use strict'
 
 const Store = use('App/Models/Store')
+const City = use('App/Models/City')
+const District = use('App/Models/District')
+const State = use('App/Models/State')
 const { cnpj } = require('cpf-cnpj-validator')
 const isValidCep = require('@brazilian-utils/is-valid-cep')
+const Mail = use('Mail')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -50,8 +54,35 @@ class StoreController {
         .status(401)
         .send({ error: { message: 'CEP inválido! Verifique as informações e tente novamente' } })
     }
+    const store = data
 
-    const store = await Store.create({ ...data, user_id: auth.user.id })
+    const user = auth.user
+    const city = await City.findOrFail(data.city_id)
+    const district = await District.findOrFail(data.district_id)
+    const state = await State.findOrFail(data.state_id)
+
+    await Mail.send(
+      ['emails.welcome'],
+      {
+        user: user.username,
+        social_name: store.social_name,
+        fantasy_name: store.fantasy_name,
+        registration_number: cnpj.format(store.registration_number),
+        address_street: store.address_street,
+        address_number: store.address_number,
+        district: district.name,
+        city: city.name,
+        state: state.name,
+        radius_of_care: store.radius_of_care,
+        delivery_time: store.delivery_time
+      },
+      message => {
+        message
+          .to(user.email)
+          .from('admin@ipet.com.br', 'Administrador do sistema')
+          .subject('Bem vindo ao iPet!')
+      }
+    )
 
     return store
   }

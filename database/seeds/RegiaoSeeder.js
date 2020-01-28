@@ -13,6 +13,8 @@
 /** @type {import('@adonisjs/lucid/src/Factory')} */
 const regioes = require('../../database/initial_data/regioes.json')
 const Region = use('App/Models/Region')
+// eslint-disable-next-line no-unused-vars
+const color = require('colors')
 
 class RegiaoSeeder {
   async run () {
@@ -22,9 +24,9 @@ class RegiaoSeeder {
       for (const i in data) {
         await Region.create({ name: data[i].Nome })
       }
-      console.log('seeded: RegiaoSeeder.js')
+      console.log('seeded: '.green, 'RegiaoSeeder.js')
     } catch (err) {
-      console.log(err)
+      console.error(err)
     }
   }
 }
