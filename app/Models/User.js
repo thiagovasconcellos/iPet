@@ -24,6 +24,10 @@ class User extends Model {
   store () {
     return this.belongsTo('App/Models/Store')
   }
+
+  customer () {
+    return this.belongsTo('App/Models/Customer')
+  }
 }
 
 module.exports = User

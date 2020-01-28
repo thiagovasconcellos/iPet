@@ -14,4 +14,5 @@ Route.post('stores', 'StoreController.store').validator('Store')
 
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()
+  Route.resource('customers', 'CustomerController').apiOnly()
 }).middleware(['auth'])

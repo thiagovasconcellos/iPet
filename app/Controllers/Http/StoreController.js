@@ -25,8 +25,15 @@ class StoreController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index () {
-    const stores = await Store.query().with('user').with('city').with('district').with('state').fetch()
+  async index ({ request }) {
+    const { page } = request.get()
+    const stores = await Store
+      .query()
+      .with('user')
+      .with('city')
+      .with('district')
+      .with('state')
+      .paginate(page)
 
     return stores
   }

@@ -1,5 +1,7 @@
 'use strict'
 
+const Antl = use('Antl')
+
 class Store {
   get rules () {
     return {
@@ -11,6 +13,10 @@ class Store {
       registration_number: 'required',
       address_street: 'required'
     }
+  }
+
+  get messages () {
+    return Antl.list('validation')
   }
 }
 
