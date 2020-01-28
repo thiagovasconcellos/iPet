@@ -5,9 +5,12 @@
 const Route = use('Route')
 
 Route.post('users', 'UserController.store').validator('User')
-Route.post('sessions', 'SessionController.store')
-Route.post('forgotpassword', 'ForgotPasswordController.store')
-Route.put('forgotpassword', 'ForgotPasswordController.update')
+Route.post('sessions', 'SessionController.store').validator('Session')
+Route.post('forgotpassword', 'ForgotPasswordController.store').validator('ForgotPassword')
+Route.put('forgotpassword', 'ForgotPasswordController.update').validator('ResetPassword')
+Route.get('files/:id', 'FileController.show')
+Route.post('files', 'FileController.store')
+Route.post('stores', 'StoreController.store').validator('Store')
 
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()

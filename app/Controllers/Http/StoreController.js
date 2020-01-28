@@ -57,9 +57,12 @@ class StoreController {
     const store = data
 
     const user = auth.user
+    store.user_id = user.id
     const city = await City.findOrFail(data.city_id)
     const district = await District.findOrFail(data.district_id)
     const state = await State.findOrFail(data.state_id)
+
+    await Store.create({ store })
 
     await Mail.send(
       ['emails.welcome'],
@@ -103,8 +106,6 @@ class StoreController {
     await store.load('city')
     await store.load('district')
     await store.load('state')
-
-    store.registration_number = cnpj.format(store.registration_number)
 
     return store
   }
