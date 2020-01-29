@@ -21,7 +21,7 @@ class ProductController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ request, response }) {
     try {
       const { page } = request.get()
       const products = await Product
