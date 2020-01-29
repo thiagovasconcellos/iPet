@@ -33,6 +33,10 @@ class Store extends Model {
   avatar () {
     return this.hasOne('App/Models/File')
   }
+
+  productGroups () {
+    return this.hasMany('App/Models/ProductGroup')
+  }
 }
 
 module.exports = Store

@@ -29,8 +29,6 @@ class CustomerController {
       .with('customerAddress')
       .paginate(page)
 
-    console.log(`teste: ${customers}`)
-
     return customers
   }
 
