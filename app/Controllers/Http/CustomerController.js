@@ -3,6 +3,7 @@
 const Customer = use('App/Models/Customer')
 const { cpf } = require('cpf-cnpj-validator')
 const isValidCep = require('@brazilian-utils/is-valid-cep')
+const Database = use('Database')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
@@ -34,18 +35,6 @@ class CustomerController {
   }
 
   /**
-   * Render a form to be used for creating a new customer.
-   * GET customers/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request }) {
-  }
-
-  /**
    * Create/save a new customer.
    * POST customers
    *
@@ -74,9 +63,13 @@ class CustomerController {
 
     data.user_id = auth.user.id
 
-    const customer = await Customer.create(data)
+    const transaction = await Database.beginTransaction()
 
-    await customer.customerAddress().createMany(addresses)
+    const customer = await Customer.create(data, transaction)
+
+    await customer.customerAddress().createMany(addresses, transaction)
+
+    await transaction.commit()
 
     return customer
   }
@@ -91,19 +84,11 @@ class CustomerController {
    * @param {View} ctx.view
    */
   async show ({ params }) {
-    // const customer =
-  }
+    const customer = await Customer.findOrFail(params.id)
 
-  /**
-   * Render a form to update an existing customer.
-   * GET customers/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
+    await customer.load('customerAddress')
+
+    return customer
   }
 
   /**
@@ -114,7 +99,15 @@ class CustomerController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+  async update ({ params, request }) {
+    const customer = await Customer.findOrFail(params.id)
+    const data = request.all()
+
+    customer.merge(data)
+
+    await customer.save()
+
+    return customer
   }
 
   /**
@@ -125,7 +118,10 @@ class CustomerController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params, request, response }) {
+  async destroy ({ params }) {
+    const customer = await Customer.findOrFail(params.id)
+
+    await customer.delete()
   }
 }
 

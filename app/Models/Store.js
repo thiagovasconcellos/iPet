@@ -29,6 +29,10 @@ class Store extends Model {
   state () {
     return this.belongsTo('App/Models/State')
   }
+
+  avatar () {
+    return this.hasOne('App/Models/File')
+  }
 }
 
 module.exports = Store
