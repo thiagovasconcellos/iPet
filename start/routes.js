@@ -15,5 +15,10 @@ Route.post('stores', 'StoreController.store').validator('Store')
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()
   Route.resource('customers', 'CustomerController').apiOnly()
-  Route.resource('productGroups', 'ProductGroupController').apiOnly().middleware('store')
 }).middleware(['auth'])
+
+Route.group(() => {
+  Route.resource('products', 'ProductController').apiOnly()
+  Route.resource('products.productPackages', 'ProductPackageController').apiOnly()
+  Route.resource('productGroups', 'ProductGroupController').apiOnly()
+}).middleware(['auth', 'store'])
