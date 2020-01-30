@@ -11,6 +11,7 @@ Route.put('forgotpassword', 'ForgotPasswordController.update').validator('ResetP
 Route.get('files/:id', 'FileController.show')
 Route.post('files', 'FileController.store')
 Route.post('stores', 'StoreController.store').validator('Store')
+Route.get('nearbyStores', 'StoreNearestController.index')
 
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()
