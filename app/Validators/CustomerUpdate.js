@@ -2,20 +2,20 @@
 
 const Antl = use('Antl')
 
-class Customer {
+class CustomerUpdate {
   get validateAll () {
     return true
   }
 
   get rules () {
     return {
-      first_name: 'required|max:50',
-      last_name: 'required|max:50',
-      registration_number: 'required|cpf|unique:customers|max:13',
+      first_name: 'max:50',
+      last_name: 'max:50',
+      registration_number: 'cpf|max:13',
       gender: 'max:2',
-      'addresses.*.district_id': 'required',
-      'addresses.*.state_id': 'required',
-      'addresses.*.city_id': 'required',
+      'addresses.*.district_id': 'number',
+      'addresses.*.state_id': 'number',
+      'addresses.*.city_id': 'number',
       'addresses.*.zip_code': 'cep|max:8',
       'addresses.*.address_street': 'max:50',
       'addresses.*.address_number': 'number',
@@ -29,4 +29,4 @@ class Customer {
   }
 }
 
-module.exports = Customer
+module.exports = CustomerUpdate

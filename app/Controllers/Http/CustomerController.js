@@ -77,6 +77,7 @@ class CustomerController {
    * @param {Response} ctx.response
    */
   async update ({ params, request }) {
+    console.log('chegou')
     const customer = await Customer.findOrFail(params.id)
     const data = request.all()
 

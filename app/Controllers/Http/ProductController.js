@@ -63,7 +63,7 @@ class ProductController {
     if (!packageExistOnStore.lenght > 0) {
       return response
         .status(400)
-        .send({ error: { message: 'O código de grupo informado não está cadastrado no seu estabelecimento.' } })
+        .send({ error: { message: 'The given group id could not be found on this store.' } })
     }
 
     data.store_id = request.stored_id
@@ -101,17 +101,17 @@ class ProductController {
         .with('productPackage')
         .fetch()
 
-      console.log(product)
-
-      if (!product.lenght > 0) {
+      if (product.id === 0) {
         return response
           .status(400)
-          .send({ error: { message: 'Não foi possível encontrar nenhum poduto' } })
+          .send({ error: { message: 'No products where found with the given id' } })
       }
 
       return product
     } catch (error) {
-      console.log(error)
+      return response
+        .status(error.status)
+        .send(error.message)
     }
   }
 
@@ -137,7 +137,7 @@ class ProductController {
       if (!product.lenght > 0) {
         return response
           .status(400)
-          .send({ error: { message: 'Não foi possível encontrar nenhum poduto' } })
+          .send({ error: { message: 'No products where found with the given id' } })
       }
 
       await product.merge(data)
@@ -170,13 +170,13 @@ class ProductController {
     if (!product.lenght > 0) {
       return response
         .status(400)
-        .send({ error: { message: 'Não foi possível encontrar nenhum poduto' } })
+        .send({ error: { message: 'No products where found with the given id' } })
     }
 
     await product.destroy()
     return response
       .status(201)
-      .send({ ok: { message: 'Produto removido com sucesso' } })
+      .send({ ok: { message: 'Deleted' } })
   }
 }
 
