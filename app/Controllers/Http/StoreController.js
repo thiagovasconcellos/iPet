@@ -49,20 +49,7 @@ class StoreController {
    */
   async store ({ request, response, auth }) {
     const data = request.all()
-
-    if (!cnpj.isValid(data.registration_number)) {
-      return response
-        .status(401)
-        .send({ error: { message: 'Cnpj inválido! Verifique as informações e tente novamente' } })
-    }
-
-    if (!isValidCep(data.zip_code)) {
-      return response
-        .status(401)
-        .send({ error: { message: 'CEP inválido! Verifique as informações e tente novamente' } })
-    }
     const store = data
-
     const user = auth.user
     store.user_id = user.id
     const city = await City.findOrFail(data.city_id)

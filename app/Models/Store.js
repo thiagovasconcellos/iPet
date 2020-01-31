@@ -5,6 +5,10 @@ const Model = use('Model')
 const { cnpj } = require('cpf-cnpj-validator')
 
 class Store extends Model {
+  static get hidden () {
+    return ['created_at', 'updated_at', 'registration_number']
+  }
+
   static get computed () {
     return ['formated_registration']
   }

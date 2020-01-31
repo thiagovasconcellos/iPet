@@ -14,7 +14,7 @@ Route.post('files', 'FileController.store')
 Route.post('stores', 'StoreController.store').validator('Store')
 Route.get('nearbyStores', 'StoreNearestController.index')
 
-// Routes to create stores and customers.
+// Routes to create stores, customers and orders.
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()
   Route.resource('customers', 'CustomerController')
@@ -23,6 +23,7 @@ Route.group(() => {
       [['customers.update'], ['CustomerUpdate']]
     ]))
     .apiOnly()
+  Route.resource('orders', 'OrderController').apiOnly()
 }).middleware(['auth'])
 
 // Special group to products. Needs a middleware to validate if the product has a valid store associatated.

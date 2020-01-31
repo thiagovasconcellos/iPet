@@ -48,8 +48,6 @@ class ProductController {
   async store ({ request, response }) {
     const data = request.only(['group_id', 'name', 'active', 'price'])
 
-    // const packageExistOnStore = await ProductGroup.find(data.group_id)
-    console.log(request.stored_id, data.group_id)
     const packageExistOnStore = await ProductGroup
       .query()
       .where({

@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class ProductPackageSchema extends Schema {
   up () {
-    this.create('product_packages', (table) => {
+    this.create('product_packages', table => {
       table.increments()
       table
         .integer('product_id')

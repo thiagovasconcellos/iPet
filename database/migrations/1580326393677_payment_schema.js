@@ -5,7 +5,7 @@ const Schema = use('Schema')
 
 class PaymentSchema extends Schema {
   up () {
-    this.create('payments', (table) => {
+    this.create('payments', table => {
       table.increments()
       table.string('name', 50).notNullable()
       table.timestamps()
