@@ -18,9 +18,13 @@
   "date_format":
     "The {{field}} should be a valid date according to given format {{argument.0}}.",
   "different": "The {{field}} and {{argument.0}} should be different.",
+  "cnpj": "The {{field}} should be a valid brazilian CNPJ.",
+  "cpf": "The {{field}} should be a valid brazilian cpf.",
+  "cep": "The {{field}} should be a valid brazilian zip code.",
   "email": "The {{field}} should be a valid email address.",
   "ends_with": "The {{field}} should end with given letters ({{argument}}).",
   "equals": "The {{field}} should should equal {{argument.0}}.",
+  "gtin": "The {{field}} should be a valid GTIN.",
   "in": "The {{field}} should fall within defined values of ({{argument}}).",
   "includes": "The {{field}} should include define letters ({{argument}}).",
   "integer": "The {{field}} should be an INTEGER.",

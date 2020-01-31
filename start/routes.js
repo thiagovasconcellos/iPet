@@ -15,8 +15,10 @@ Route.get('nearbyStores', 'StoreNearestController.index')
 
 Route.group(() => {
   Route.resource('stores', 'StoreController').apiOnly()
-  Route.resource('customers', 'CustomerController').apiOnly()
+  // Route.resource('customers', 'CustomerController').apiOnly()
 }).middleware(['auth'])
+
+Route.post('customers', 'CustomerController.store').validator('Customer')
 
 Route.group(() => {
   Route.resource('products', 'ProductController').apiOnly()

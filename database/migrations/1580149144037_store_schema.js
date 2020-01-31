@@ -42,7 +42,7 @@ class StoreSchema extends Schema {
       table.string('address_street', 50).notNullable()
       table.bigInteger('address_number')
       table.string('zip_code', 8)
-      table.string('phone_number')
+      table.string('phone_number', 15)
       table.decimal('latitude', [10], [8])
       table.decimal('longitude', [11], [8])
       table.integer('delivery_time')
