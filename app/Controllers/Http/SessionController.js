@@ -7,14 +7,14 @@
 class SessionController {
   /**
    * @param {Request} ctx.request
-   * @param {Request} ctx.auth
+   * @param {AuthSession} ctx.auth
    */
   async store ({ request, response, auth }) {
     const { email, password } = request.all()
 
     const token = await auth.attempt(email, password)
 
-    return token
+    return response.created(token)
   }
 }
 

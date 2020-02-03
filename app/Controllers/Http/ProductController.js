@@ -76,7 +76,7 @@ class ProductController {
 
     await transaction.commit()
 
-    return product
+    return response.created(product)
   }
 
   /**

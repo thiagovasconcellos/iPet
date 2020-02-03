@@ -1,11 +1,11 @@
 'use strict'
 
+const Database = use('Database')
 const Store = use('App/Models/Store')
 const City = use('App/Models/City')
 const District = use('App/Models/District')
 const State = use('App/Models/State')
 const { cnpj } = require('cpf-cnpj-validator')
-const isValidCep = require('@brazilian-utils/is-valid-cep')
 const Mail = use('Mail')
 
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
@@ -48,40 +48,53 @@ class StoreController {
    * @param {View} ctx.view
    */
   async store ({ request, response, auth }) {
-    const data = request.all()
-    const store = data
-    const user = auth.user
-    store.user_id = user.id
-    const city = await City.findOrFail(data.city_id)
-    const district = await District.findOrFail(data.district_id)
-    const state = await State.findOrFail(data.state_id)
+    try {
+      const data = request.all()
+      const user = await auth.getUser()
+      // eslint-disable-next-line camelcase
+      data.user_id = user.id
 
-    await Store.create({ store })
-
-    await Mail.send(
-      ['emails.welcome'],
-      {
-        user: user.username,
-        social_name: store.social_name,
-        fantasy_name: store.fantasy_name,
-        registration_number: cnpj.format(store.registration_number),
-        address_street: store.address_street,
-        address_number: store.address_number,
-        district: district.name,
-        city: city.name,
-        state: state.name,
-        radius_of_care: store.radius_of_care,
-        delivery_time: store.delivery_time
-      },
-      message => {
-        message
-          .to(user.email)
-          .from('admin@ipet.com.br', 'Administrador do sistema')
-          .subject('Bem vindo ao iPet!')
+      if (!user) {
+        return response.status(400).send({ error: { message: 'Problem with your credentials. Refresh sessions' } })
       }
-    )
 
-    return store
+      const city = await City.findOrFail(data.city_id)
+
+      const district = await District.findOrFail(data.district_id)
+
+      const state = await State.findOrFail(data.state_id)
+      const transaction = await Database.beginTransaction()
+
+      const store = await Store.create(data)
+      await transaction.commit()
+
+      await Mail.send(
+        ['emails.welcome'],
+        {
+          user: user.username,
+          social_name: store.social_name,
+          fantasy_name: store.fantasy_name,
+          registration_number: cnpj.format(store.registration_number),
+          address_street: store.address_street,
+          address_number: store.address_number,
+          district: district.name,
+          city: city.name,
+          state: state.name,
+          radius_of_care: store.radius_of_care,
+          delivery_time: store.delivery_time
+        },
+        message => {
+          message
+            .to(user.email)
+            .from('admin@ipet.com.br', 'Administrador do sistema')
+            .subject('Bem vindo ao iPet!')
+        }
+      )
+
+      return response.created(store)
+    } catch (error) {
+      return response.status(error.status).send(error.message)
+    }
   }
 
   /**

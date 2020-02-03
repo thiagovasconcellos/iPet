@@ -10,7 +10,7 @@ class Store {
       city_id: 'required',
       social_name: 'required|max:50',
       fantasy_name: 'required|max:50',
-      registration_number: 'required|cnpj',
+      registration_number: 'required|cnpj|unique:stores',
       address_street: 'required|max:50',
       zip_code: 'required|cep',
       phone_number: 'max:15',
