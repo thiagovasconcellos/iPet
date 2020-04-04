@@ -40,3 +40,39 @@ adonis serve --dev
 Você deve visualizar a seguinte tela:
 
 ![adonis](https://i.ibb.co/cyhftDK/adonis-serve.png)
+
+## Importando arquivo de rotas
+
+Baixe o arquivo de [rotas](https://easyupload.io/kn1gto)
+Senha: ipet_insomnia
+
+Dentro do Insomnia, selecione a opção "import/export" do menu lateral:
+
+![insomnia](https://i.ibb.co/vq3SR1R/insomnia.png)
+
+Selecione o arquivo .json que você baixou anteriormente. Após a importação, o insomnia deve se parecer com isso:
+
+![ipet](https://i.ibb.co/n7P4rY5/ipet.png)
+
+### Variáveis de ambiente Insomnia
+Dentro das configurações de ambiente do projeto, vem pré-configurado 3 variáveis: 
+
+```json
+{
+  "base_URL": "http://localhost:3333",
+  "provider_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjEsImlhdCI6MTU4MDc0MDQxOX0.AKCQQcWXEKAqHNMbR6hiiyGkEvh4gshm5AayS8AIhmQ",
+  "user_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1aWQiOjMsImlhdCI6MTU4MDQ4OTM5Mn0.7Uj67cfvSzWEbapkQhtiD4cNPXdQDG1yDGWTxPSKLhg"
+}
+```
+
+A base_URL é o local onde seu servidor está rodando.
+
+A aplicação é dividida em 2 níveis: Usuários e prestadores. Cada um tem seu token com suas determinadas validações através dos middlewares do Adonis. ('auth' e 'store')
+Isso por que algumas rotas são exclusivas para estabelecimentos, como a rota de criação e alteração de produtos.
+
+Portanto, ao criar um usuário pela rota "User", o boolenano "provider" determina quais pontos do sistema você poderá acessar.
+ * Crie um usuário válido na rota "users"
+ * Realize o login na aplicação através da rota "sessions"
+Se o usuário que você criou é provedor, grave o token gerado pela rota sessions na variável "provider_token". Do contrário, salve na "user_token".
+
+Todas as outras rotas precisam de autenticação através do Header. O arquivo que foi importado já está com os devidos cabeçalhos configurados, tudo que você precisa fazer é passar um token válido para usuários e outro para prestador.
