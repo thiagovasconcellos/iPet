@@ -76,3 +76,26 @@ Portanto, ao criar um usuário pela rota "User", o boolenano "provider" determin
 Se o usuário que você criou é provedor, grave o token gerado pela rota sessions na variável "provider_token". Do contrário, salve na "user_token".
 
 Todas as outras rotas precisam de autenticação através do Header. O arquivo que foi importado já está com os devidos cabeçalhos configurados, tudo que você precisa fazer é passar um token válido para usuários e outro para prestador.
+
+### Database
+
+Por padrão o projeto vem com um banco sqlite configurado.
+Para alterar isso, basta alterar as diretrizes de configuração no arquivo .env da raiz.
+
+Altere a variável DB_CONNECTION para uma das seguintes:
+
+ * pg (Postgres)
+ * mssql (Microsoft Sql Server)
+ * mysql (MariaDB/MySQL)
+ * oracledb (Oracle DB)
+ * **sqlite3 (Sqlite)**
+ 
+Se alterar o banco, é necessário instalar o pacote através do yarn.
+
+`` yarn add <pg> / <mssql> / <mysql> / <oracledb> / <sqlite3>``
+
+Após alterar o banco, é preciso rodar as Migrations e as Seeds.
+
+`` adonis migration:run``
+
+``adonis seed``
