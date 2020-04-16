@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "name": "Dinheiro"
+  },
+  {
+    "id": 2,
+    "name": "Cartão de débito"
+  },
+  {
+    "id": 3,
+    "name": "Cartão de crédito"
+  }
+]
