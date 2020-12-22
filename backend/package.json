@@ -34,7 +34,7 @@
     "cpf-cnpj-validator": "^0.1.0",
     "date-fns": "^2.9.0",
     "geoip-lite": "^1.4.0",
-    "geolib": "^3.2.1",
+    "geolib": "^3.3.1",
     "gtin": "^0.3.0",
     "sqlite3": "^4.1.1"
   },
