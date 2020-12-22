@@ -32,7 +32,7 @@
     "@brazilian-utils/is-valid-cep": "^0.1.2",
     "colors": "^1.4.0",
     "cpf-cnpj-validator": "^0.1.0",
-    "date-fns": "^2.9.0",
+    "date-fns": "^2.16.1",
     "geoip-lite": "^1.4.0",
     "geolib": "^3.2.1",
     "gtin": "^0.3.0",
